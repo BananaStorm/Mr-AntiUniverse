@@ -49,7 +49,7 @@ Physics = {
 			}
 
 		}
-	}
+	},
 
 	checkCollide(obj1,obj2,callback){
 

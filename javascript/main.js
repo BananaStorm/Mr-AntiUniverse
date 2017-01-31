@@ -40,7 +40,7 @@ function init(){
 	scene.add( ring );
 
 // PLAYER
-	spaceship = new THREE.Mesh(
+	spaceship = new GameObject(
 			new THREE.BoxGeometry( 8, 8, 16 ), 
 			new THREE.MeshBasicMaterial( { color: 0xffff00, wireframe: true } ) 
 	)
