@@ -9,7 +9,7 @@ class GameObject extends THREE.Mesh {
 	}
 
 	update(){
-
+		console.log(this);
 	}
 
 	kill(){

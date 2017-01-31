@@ -1,8 +1,28 @@
-Physics = {
+class Physics {
+	
+	constructor(game){
+		this.game = game;
+	}
+	
+	process(){
+		for (let i = 0; i < this.game.scene.children.length; i++) {
+			let o = this.game.scene.children[i];
+			
+			if (o.velocity && o.position){
+				o.position.x += o.velocity.x;
+				o.position.y += o.velocity.y;
+				o.position.z += o.velocity.z;
+			}
+		}
+	}
+}
+
+physics = {
 
 	toCollide : [],
 
 	update(){
+
 		for (let i = 0; i < game.currentState.scene.length; i++) {
 			
 			let item = this.game.currentState.scene[i];
@@ -11,12 +31,6 @@ Physics = {
 				item.position.x += item.velocity.x;
 				item.position.y += item.velocity.y;
 				item.position.z += item.velocity.z;
-			}
-
-			if (item.rotationSpeed){
-				item.rotation.x += item.rotationSpeed.x;
-				item.rotation.y += item.rotationSpeed.y;
-				item.rotation.z += item.rotationSpeed.z;
 			}
 
 			for (let j = 0; j < this.toCollide.length; j++) {
