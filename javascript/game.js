@@ -8,6 +8,7 @@ let Game = {
 	currentState : null,
 	renderer : null,
 	physics: Physics,
+	self: null,
 
 	init(){
 		
@@ -19,14 +20,15 @@ let Game = {
 		this.renderer.setPixelRatio( window.devicePixelRatio );
 		this.renderer.setSize( SCREEN_WIDTH, SCREEN_HEIGHT);
 
+		this.self = this;
+
 		document.body.appendChild( this.renderer.domElement );
 	},
 
 	update(){
-
-		requestAnimationFrame( this.update() );
-		this.currentState.update();
-		this.renderer.render( this.currentState.scene, this.currentState.camera );
+		requestAnimationFrame( Game.update );
+		Game.self.currentState.update();
+		Game.self.renderer.render( Game.self.currentState.scene, Game.self.currentState.camera );
 	},
 
 	addState(state){

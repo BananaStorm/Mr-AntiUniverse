@@ -18,6 +18,6 @@ class State {
 		for (var i = 0; i < this.scene.children.length; i++) {
 			if (this.scene.children[i].update) this.scene.children[i].update();
 		}
-		this.funcs.update();
+		this.funcs.update.apply(this);
 	}
 }

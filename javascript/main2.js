@@ -2,8 +2,13 @@
 
 Game.init();
 
+
 let mainState = Game.addState(new State('game', {init: init, update: update}));
 
+Game.currentState = Game.getStateByName('game');
+Game.self.currentState = Game.getStateByName('game');
+
+Game.update();
 
 function init(){
 	spaceship = new GameObject(
@@ -14,7 +19,7 @@ function init(){
 }
 
 function update(){
-
+	this.camera.lookAt(spaceship);
 }
 
 Game.launchState('game');
