@@ -3,19 +3,19 @@ const SCREEN_HEIGHT = window.innerHeight;
 const aspect = SCREEN_WIDTH / SCREEN_HEIGHT;
 
 let Game = {
-	
-	states : [],
-	currentState : null,
+
 	renderer : null,
-	physics: Physics,
-	self: null,
+	camera : null,
+	scene : null,
+	physics: null,
 
 	init(){
 		
-		console.log('coucou');
+	// create container div
 		let container = document.createElement( 'div' );
 		document.body.appendChild( container );
 
+	// create renderer
 		this.renderer = new THREE.WebGLRenderer( { antialias: true } );
 		this.renderer.setPixelRatio( window.devicePixelRatio );
 		this.renderer.setSize( SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -23,31 +23,42 @@ let Game = {
 		this.self = this;
 
 		document.body.appendChild( this.renderer.domElement );
+
+	// create scene
+		this.scene  = new THREE.Scene();
+
+	// create physics
+		this.physics = new Physics(this);
+
+	// create camera
+		this.camera =  new THREE.OrthographicCamera( SCREEN_WIDTH / - 2, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, SCREEN_HEIGHT / - 2, 1, 1000 );
+	
+	// add camera to scene
+		this.scene.add(this.camera);
+	
+	// camera position
+		this.camera.position.y = -400;
+
+		create();
+
+	// launch update()
+		this.update();
 	},
 
 	update(){
+
 		requestAnimationFrame( Game.update );
-		Game.self.currentState.update();
-		Game.self.renderer.render( Game.self.currentState.scene, Game.self.currentState.camera );
-	},
+		
+		Game.physics.process();
 
-	addState(state){
-		this.states.push(state);
-		return state;
-	},
+	// update instances
+		for (let i = 0; i < Game.scene.children.length; i++) {
+			if (Game.scene.children[i].update) Game.scene.children[i].update();
+		}	
+		
+		update();
+	// render
+		Game.renderer.render( Game.scene, Game.camera );
 
-	getStateByName(string){
-		for (let i = 0; i < this.states.length; i++) {
-			let s = this.states[i]
-			if (s.name == string) {
-				return s;
-			}
-		}
-	},
-
-	launchState(name){
-		let s = this.getStateByName(name);
-		s.init();
-		this.currentState = s;
-	},
+	}
 }

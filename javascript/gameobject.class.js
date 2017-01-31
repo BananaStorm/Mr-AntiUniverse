@@ -9,7 +9,6 @@ class GameObject extends THREE.Mesh {
 	}
 
 	update(){
-
 	}
 
 	kill(){
@@ -17,8 +16,8 @@ class GameObject extends THREE.Mesh {
 		this.alive = false;
 	}
 
-	reset(scene, x, y, z){
-		scene.add(this);
+	reset(x, y, z){
+		Game.scene.add(this);
 		this.position.x = x || 0;
 		this.position.y = y || 0;
 		this.position.z = z || 0;
