@@ -35,11 +35,19 @@ class Player extends GameObject {
 				new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true } )
 			);
 
+			physics.toCollide.push([bullet,Game.planet,()=>{
+				bullet.kill();
+				Game.planet.health-=10;
+
+			}]);
+
 			bullet.fire(this.position, this.angle, 5);
+			console.log(bullet.velocity);
 			this.fire = false;
+
 			setTimeout(()=>{
 				this.fire = true;
-			},500);
+			},100);
 		};
 	}
 }

@@ -12,7 +12,7 @@ class GameObject extends THREE.Mesh {
 	}
 
 	kill(){
-		this.parent.remove(this);
+		Game.scene.remove(this);
 		this.alive = false;
 	}
 

@@ -12,6 +12,5 @@ class Bullet extends GameObject {
 		let vel = utils.velocityFromRotation(rotation, speed);
 		this.velocity.x = -vel.x;
 		this.velocity.z = -vel.z;
-		console.log(this.velocity);
 	}
 }

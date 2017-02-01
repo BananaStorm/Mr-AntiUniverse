@@ -22,6 +22,8 @@ function create(){
 function update(){
 	
 	Game.camera.lookAt(Game.planet.position);
+
+	physics.update();
 	
 }
 

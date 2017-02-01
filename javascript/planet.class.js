@@ -17,9 +17,17 @@ class Planet extends GameObject {
 	}
 
 	update(){
+		//Si l'entitée est morte on stop l'update;
+		if (!this.alive) return
+
+		//Si l'entitée n'as plus d'hp on la tue et on sort de la fonction
+		if (this.health<=0){
+			this.kill();
+			return
+		}
+
 		this.rotation.x += this.rotationSpeed.x;
 		this.rotation.y += this.rotationSpeed.y;
-		if (this.orbitSize<0) location.reload(); 
 		this.orbitSize -= 0.15;
 
 	}
