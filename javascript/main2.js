@@ -14,25 +14,41 @@ function create(){
 	);
 	Game.scene.add( Game.planet );
 
+	Game.physics.collide("playerBullets", "planet", function(o1, o2) {
+		o1.kill();
+		o2.health -= 5;
+	});
+
+	Game.physics.collide("player", "planetBullets", function(o1, o2) {
+		o1.kill();
+	})
+
 	Game.spaceship.target = Game.planet;
 
 // UI
 	
-	Game.overheatedBar = new THREE.Mesh(
-		new THREE.RingGeometry( 50, 40, 15, 1, Math.PI/2, Math.PI ),
+	Game.heatBar = new THREE.Mesh(
+		new THREE.RingGeometry( 96, 128, 15, 1, Math.PI/2, Math.PI ),
 		new THREE.MeshBasicMaterial( { color: 0xffff00, wireframe: true })
 	);	
 
-	Game.scene.add( Game.overheatedBar );
+	Game.scene.add( Game.heatBar );
 
-	Game.overheatedBar.position.x = -200;
-	Game.overheatedBar.rotation.x = 90*Math.PI/180;
+	Game.heatBar.position.x = 0;
+	Game.heatBar.rotation.x = 90*Math.PI/180;
 
-	console.log(Game.overheatedBar.geometry)
+	console.log(Game.heatBar.geometry)
 }
 function update(){
+
+	let avgX = Game.planet.position.x+Game.spaceship.position.x/5;
+	let avgY = Game.planet.position.y+Game.spaceship.position.y/5;
+	let avgZ = Game.planet.position.z+Game.spaceship.position.z/5;
 	
-	Game.camera.lookAt(Game.planet.position);
+	let average = new THREE.Vector3(avgX, avgY, avgZ);
+
+	Game.camera.lookAt(average);
+	Game.camera.rotation.z = 0;
 	physics.update();
 	
 }

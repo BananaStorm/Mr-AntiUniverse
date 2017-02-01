@@ -23,4 +23,9 @@ class GameObject extends THREE.Mesh {
 		this.position.z = z || 0;
 		this.alive = true;
 	}
+
+	collideWith(obj, callback){
+
+		physics.toCollide.push([this, obj, callback]);
+	}
 }

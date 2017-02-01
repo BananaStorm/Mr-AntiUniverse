@@ -15,17 +15,25 @@ class Planet extends GameObject {
 		this.weapon = null;
 		
 		this.bulletManagers = [];
+		
+		Game.physics.addCollisionGroup([], "planetBullets");
+
 		for (let i = 0; i < 8; i++) {
 			
 			let bm = new BulletManager(100);
 			
-			bm.populate(200, 	
+			let bullets = bm.populate(200, 	
 				new THREE.SphereGeometry(  4, 1, 4  ),
 				new THREE.MeshBasicMaterial( { color: 0x0000ff, wireframe: true } )
 			);
 
 			this.bulletManagers.push(bm);
+
+			Game.physics.populateCollisionGroup(bullets, "planetBullets");
+			Game.physics.collide
 		}
+
+		Game.physics.addCollisionGroup([this], "planet");
 
 	}
 

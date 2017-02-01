@@ -14,6 +14,7 @@ class BulletManager{
 			bullet.kill();
 			this.pool.push(bullet);
 		}
+		return this.pool;
 	};
 
 	getBullet(){
@@ -30,6 +31,10 @@ class BulletManager{
 
 			this.getBullet().fire(origin, angle + this.rotation, speed);
 			this.nextFire = Game.time() + this.fireRate;
+			return true;
+		}
+		else {
+			return false;
 		}
 	};
 }
