@@ -18,11 +18,16 @@ class Player extends GameObject {
 		this.angle = 0;
 		this.bulletManager = new BulletManager(100);
 
-		this.hitbox = this.add(new GameObject(
+		this.hitbox = new GameObject(
 			
 			new THREE.SphereGeometry(  6, 8, 8  ),
 			new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true } )
-		));
+		);
+
+		this.hitbox.position.x = 500;
+
+		this.add(this.hitbox);
+		this.hitbox.gameObject = this;
 
 		Game.scene.add(this.hitbox);
 		

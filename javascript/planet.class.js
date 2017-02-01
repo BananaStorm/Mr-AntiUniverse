@@ -30,7 +30,6 @@ class Planet extends GameObject {
 			this.bulletManagers.push(bm);
 
 			Game.physics.populateCollisionGroup(bullets, "planetBullets");
-			Game.physics.collide
 		}
 
 		Game.physics.addCollisionGroup([this], "planet");
@@ -57,7 +56,7 @@ class Planet extends GameObject {
 
 		this.rotation.x += this.rotationSpeed.x;
 		this.rotation.y += this.rotationSpeed.y;
-		this.orbitSize -= 0.15;
+		this.orbitSize -= 1;
 
 	}
 }

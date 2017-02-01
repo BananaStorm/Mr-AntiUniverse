@@ -52,7 +52,8 @@ class Physics {
 		let dist = Math.sqrt(Math.pow((obj2.position.x-obj1.position.x),2) + Math.pow((obj2.position.z-obj1.position.z),2));
 
 		// Si elle est inférieur à la somme des radius des deux objets, il y a collison
-		if (dist<(obj2.geometry.parameters.radius+obj1.geometry.parameters.radius)) return true;	
+		if (dist<(obj2.geometry.parameters.radius+obj1.geometry.parameters.radius)) return true;
+		return false;
 	}
 
 	addCollisionGroup(array, key){
@@ -68,7 +69,7 @@ class Physics {
 
 		if (this.collisionGroups[key]) {
 			if (Array.isArray(array)){
-				this.collisionGroups[key].concat(array);
+				this.collisionGroups[key] = this.collisionGroups[key].concat(array);
 			} else {
 				this.collisionGroups[key].push(array);
 			}			
