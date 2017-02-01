@@ -60,6 +60,6 @@ physics = {
 					   Math.pow((obj2.position.z-obj1.position.z),2));
 
 		// Si elle est inférieur au radius du 2nd objet, il y a collison
-		if (distance<obj2.geometry.parameters.radius && typeof callback === 'function') callback();
+		if (distance<(obj2.geometry.parameters.radius+obj1.geometry.parameters.radius) && typeof callback === 'function') callback();
 	}
 }
