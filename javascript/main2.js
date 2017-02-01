@@ -13,7 +13,6 @@ function create(){
 		new THREE.MeshBasicMaterial( { color: 0xffffff, wireframe: true } )
 	);
 	Game.scene.add( Game.planet );
-	
 
 	Game.spaceship.target = Game.planet;
 
@@ -31,11 +30,9 @@ function create(){
 
 	console.log(Game.overheatedBar.geometry)
 }
-
 function update(){
 	
 	Game.camera.lookAt(Game.planet.position);
-
 	physics.update();
 	
 }

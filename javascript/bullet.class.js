@@ -13,4 +13,12 @@ class Bullet extends GameObject {
 		this.velocity.x = -vel.x;
 		this.velocity.z = -vel.z;
 	}
+
+	update(){
+		let c = Game.camera;
+		
+		if ( Math.abs(this.position.x) > Math.abs (c.right) || Math.abs(this.position.z) > Math.abs(c.top) ) {		
+			this.kill();
+		}
+	}
 }

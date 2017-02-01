@@ -13,6 +13,19 @@ class Planet extends GameObject {
 		}
 
 		this.weapon = null;
+		
+		this.bulletManagers = [];
+		for (let i = 0; i < 8; i++) {
+			
+			let bm = new BulletManager(100);
+			
+			bm.populate(200, 	
+				new THREE.SphereGeometry(  4, 1, 4  ),
+				new THREE.MeshBasicMaterial( { color: 0x0000ff, wireframe: true } )
+			);
+
+			this.bulletManagers.push(bm);
+		}
 
 	}
 
@@ -26,9 +39,19 @@ class Planet extends GameObject {
 			return
 		}
 
+
+		for (let i = 0; i < this.bulletManagers.length; i++) {
+			let bm = this.bulletManagers[i];
+			bm.fire(this.position, utils.degToRad(i*45), 2);
+			bm.rotation = utils.degToRad(Math.sin(index)*10);
+			index += 1;
+		}
+
 		this.rotation.x += this.rotationSpeed.x;
 		this.rotation.y += this.rotationSpeed.y;
 		this.orbitSize -= 0.15;
 
 	}
 }
+
+let index = 0;

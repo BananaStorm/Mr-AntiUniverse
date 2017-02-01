@@ -1,14 +1,18 @@
 class BulletManager{
 	
-	constructor(scene, array, fireRate){
-		this.pool = array || [];
-		this.fireRate;
+	constructor(fireRate, scene){
+		this.pool = [];
+		this.fireRate = fireRate;
+		this.nextFire = 0;
 		this.parent = scene;
+		this.rotation = 0;
 	};
 	
 	populate(nb, geometry, material){
 		for (let i = 0; i < nb; i++) {
 			let bullet = new Bullet(geometry, material);
+			bullet.kill();
+			this.pool.push(bullet);
 		}
 	};
 
@@ -21,7 +25,11 @@ class BulletManager{
 		}
 	}
 
-	fire(origin){
-		this.getBullet.fire();
+	fire(origin, angle, speed){
+		if (Game.time() > this.nextFire) {
+
+			this.getBullet().fire(origin, angle + this.rotation, speed);
+			this.nextFire = Game.time() + this.fireRate;
+		}
 	};
 }

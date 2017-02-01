@@ -8,6 +8,7 @@ let Game = {
 	camera : null,
 	scene : null,
 	physics: null,
+	start: 0,
 
 	init(){
 		
@@ -39,6 +40,7 @@ let Game = {
 	// camera position
 		this.camera.position.y = -400;
 
+		this.startingTime = Date.now();
 		create();
 
 	// launch update()
@@ -48,7 +50,6 @@ let Game = {
 	update(){
 
 		requestAnimationFrame( Game.update );
-		
 		Game.physics.process();
 
 	// update instances
@@ -60,5 +61,9 @@ let Game = {
 	// render
 		Game.renderer.render( Game.scene, Game.camera );
 
+	},
+
+	time(){
+		return Date.now() - this.startingTime
 	}
 }
