@@ -22,13 +22,17 @@ function create(){
 
 	Game.physics.collide("player", "planetBullets", function(o1, o2) {
 		console.log('coucou');
-		o1.gameObject.kill();
+		o1.gameObject.kill(()=>{
+			window.location.reload();
+		});
 		o1.kill();	
 
 	});
 
 	Game.physics.collide('player', 'planet', function(o1, o2) {
-		o1.gameObject.kill();
+		o1.gameObject.kill(()=>{
+			window.location.reload();
+		});
 		o1.kill();
 	})
 
@@ -48,6 +52,7 @@ function create(){
 
 	console.log(Game.heatBar.geometry)
 }
+
 function update(){
 
 	let avgX = Game.planet.position.x+Game.spaceship.position.x/5;

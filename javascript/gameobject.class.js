@@ -11,9 +11,12 @@ class GameObject extends THREE.Mesh {
 	update(){
 	}
 
-	kill(){
+	kill(callback){
 		Game.scene.remove(this);
 		this.alive = false;
+		if (callback) {
+			callback();
+		}
 	}
 
 	reset(x, y, z){
