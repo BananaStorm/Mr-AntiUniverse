@@ -9,6 +9,7 @@ let Game = {
 	scene : null,
 	physics: null,
 	start: 0,
+	isPaused : true,
 
 	init(){
 		
@@ -45,11 +46,17 @@ let Game = {
 
 	// launch update()
 		this.update();
+
+	//Keyboard
+		keyboard.init();	
 	},
 
 	update(){
 
 		requestAnimationFrame( Game.update );
+		
+		if (state != 'main') return;
+		
 		Game.physics.process();
 
 	// update instances
@@ -65,5 +72,18 @@ let Game = {
 
 	time(){
 		return Date.now() - this.startingTime
+	},
+
+	gameOver(){
+		state = 'gameOver';
+		Game.scene.children = [];
+
+		let screenGameOver = document.getElementById('gameOver');
+		screenGameOver.style.display = 'block';
+		screenGameOver.style.color = 'white';
+		screenGameOver.style.position = 'absolute';
+		screenGameOver.style.top = window.innerHeight/2+'px';
+		screenGameOver.style.left = window.innerWidth/2+'px';
+
 	}
 }

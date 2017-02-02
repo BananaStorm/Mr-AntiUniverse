@@ -1,3 +1,5 @@
+let state = 'mainMenu';
+
 function create(){
 
 //PLAYER	
@@ -21,26 +23,20 @@ function create(){
 	});
 
 	Game.physics.collide("shield", "planetBullets", function(o1, o2) {
-		//o1.kill();
-		o2.kill();
+			o2.kill();
 	});
 
 
 	Game.physics.collide("player", "planetBullets", function(o1, o2) {
-
-		console.log('coucou');
-		o1.gameObject.kill(()=>{
-			window.location.reload();
-		});
+		o1.gameObject.kill();
 		o1.kill();	
-
+		Game.gameOver()
 	});
 
 	Game.physics.collide('player', 'planet', function(o1, o2) {
-		o1.gameObject.kill(()=>{
-			window.location.reload();
-		});
+		o1.gameObject.kill();
 		o1.kill();
+		Game.gameOver()
 	})
 
 	Game.spaceship.target = Game.planet;
@@ -62,16 +58,14 @@ function create(){
 
 function update(){
 	
-	let avgX = Game.planet.position.x+Game.spaceship.position.x/5;
-	let avgY = Game.planet.position.y+Game.spaceship.position.y/5;
-	let avgZ = Game.planet.position.z+Game.spaceship.position.z/5;
-	
-	let average = new THREE.Vector3(avgX, avgY, avgZ);
+		let avgX = Game.planet.position.x+Game.spaceship.position.x/5;
+		let avgY = Game.planet.position.y+Game.spaceship.position.y/5;
+		let avgZ = Game.planet.position.z+Game.spaceship.position.z/5;
+		
+		let average = new THREE.Vector3(avgX, avgY, avgZ);
 
-	Game.camera.lookAt(average);
-	Game.camera.rotation.z = 0;
-	physics.update();
-	
+		Game.camera.lookAt(average);
+		Game.camera.rotation.z = 0;
 }
 
 Game.init();
