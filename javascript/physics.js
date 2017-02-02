@@ -67,7 +67,7 @@ class Physics {
 
 	populateCollisionGroup(array, key) {
 
-		if (this.collisionGroups[key]) {
+		if (this.collisionGroups[key]){
 			if (Array.isArray(array)){
 				this.collisionGroups[key] = this.collisionGroups[key].concat(array);
 			} else {

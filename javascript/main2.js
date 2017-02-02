@@ -21,9 +21,15 @@ function create(){
 	});
 
 	Game.physics.collide("player", "planetBullets", function(o1, o2) {
-		console.log('coucou');
-		o1.gameObject.kill();
-		o1.kill();	
+		
+		if (o1.gameObject.heat >= o1.gameObject.maxHeat) {
+			o1.gameObject.kill();
+			o1.kill();
+		};
+		
+		o1.gameObject.heat+=10;
+		
+		o2.kill();
 
 	});
 
@@ -49,7 +55,7 @@ function create(){
 	console.log(Game.heatBar.geometry)
 }
 function update(){
-
+	
 	let avgX = Game.planet.position.x+Game.spaceship.position.x/5;
 	let avgY = Game.planet.position.y+Game.spaceship.position.y/5;
 	let avgZ = Game.planet.position.z+Game.spaceship.position.z/5;

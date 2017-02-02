@@ -12,6 +12,7 @@ class Player extends GameObject {
 
 		this.heat = 0;
 		this.maxHeat = 90;
+		this.oldHeat = 0;
 
 		this.angle = -90*Math.PI/180;
 		this.shield = 100;
@@ -21,7 +22,7 @@ class Player extends GameObject {
 		this.hitbox = new GameObject(
 			
 			new THREE.SphereGeometry(  6, 8, 8  ),
-			new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true } )
+			new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true} )
 		);
 
 		this.hitbox.position.x = 500;
@@ -44,11 +45,13 @@ class Player extends GameObject {
 
 		this.powerUps = [];
 
-		this.fire = true;
-
 	}
 
 	update(){
+
+		if (this.heat >= this.maxHeat) this.heat = this.maxHeat;
+
+		if (!this.alive) return;
 
 		if (this.entryControls['ArrowRight']) this.angle += this.acceleration; //deplacement droit
 		if (this.entryControls['ArrowLeft']) this.angle -= this.acceleration; //depalcement gauche
@@ -59,11 +62,12 @@ class Player extends GameObject {
 		this.hitbox.position.x = this.position.x;
 		this.hitbox.position.z = this.position.z;
 		this.lookAt(this.target.position);
-		Game.heatBar.geometry = new THREE.RingGeometry( 320, 400, 15, 1, utils.degToRad(225), - this.heat*(Math.PI/2)/this.maxHeat );
+		
+		if (this.heat != this.oldHeat) Game.heatBar.geometry = new THREE.RingGeometry( 320, 400, 15, 1, utils.degToRad(225), - this.heat*(Math.PI/2)/this.maxHeat );
 	
 		if (this.entryControls[' ']) {//Pression d'espace
 
-			if (this.heat > this.maxHeat) return; // Si on est en surchauffe on quitte la fonction
+			if (this.heat >= this.maxHeat) return; // Si on est en surchauffe on quitte la fonction
 
 			if (this.bulletManager.fire(this.position, this.angle, 5) ) this.heat += 5;
 			
