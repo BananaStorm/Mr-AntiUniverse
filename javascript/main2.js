@@ -17,6 +17,17 @@ function create(){
 	);
 	Game.scene.add( Game.planet );
 
+//PowerUp
+/*	Game.powerUpManager = new PowerUpManager(5000, Game.scene);
+	let powerUp = Game.powerUpManager.populate(50);
+	
+	Game.physics.addCollisionGroup(powerUp, "powerUp");
+
+	Game.physics.collide("player", "powerUp", function(o1, o2) {
+		o2.onCollide();
+	});*/
+
+//Collide
 	Game.physics.collide("playerBullets", "planet", function(o1, o2) {
 		o1.kill();
 		o2.health -= 5;
@@ -64,6 +75,8 @@ function update(){
 		
 		let average = new THREE.Vector3(avgX, avgY, avgZ);
 
+		//Game.powerUpManager.spawn(Game.spaceship.position);
+		
 		Game.camera.lookAt(average);
 		Game.camera.rotation.z = 0;
 }

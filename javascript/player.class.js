@@ -99,9 +99,7 @@ class Player extends GameObject {
 
 		if (this.heat != this.oldHeat) Game.heatBar.geometry = new THREE.RingGeometry( 320, 400, 15, 1, utils.degToRad(225), - this.heat*(Math.PI/2)/this.maxHeat );
 	
-		if (this.entryControls[' ']) {//Pression d'espace
-
-			if (this.overHeat) return; // Si on est en surchauffe on quitte la fonction
+		if (this.entryControls[' '] && !this.overHeat) {//Pression d'espace
 
 			if (this.bulletManager.fire(this.position, this.angle, 5) ) this.heat += 5;
 			
@@ -109,9 +107,9 @@ class Player extends GameObject {
 
 		if (this.overHeat){
 			this.overHeatTimer--;
-			console.log(this.overHeatTimer);
 			if (this.overHeatTimer<0) {
 				this.overHeatTimer = 100;
+				this.heat = 80;
 				this.overHeat = false;
 			}
 		} 
