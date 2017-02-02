@@ -2,7 +2,7 @@ class Planet extends GameObject {
 	constructor(geometry, material){
 		super(geometry, material);
 
-		this.health = 100;
+		this.health = 200;
 
 		// this.radius = radius;
 		this.orbitSize = 300;
@@ -56,7 +56,7 @@ class Planet extends GameObject {
 
 		this.rotation.x += this.rotationSpeed.x;
 		this.rotation.y += this.rotationSpeed.y;
-		this.orbitSize -= 1;
+		this.orbitSize -= 0.2;
 
 	}
 }

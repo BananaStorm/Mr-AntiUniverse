@@ -20,6 +20,12 @@ function create(){
 		o2.health -= 5;
 	});
 
+	Game.physics.collide("shield", "planetBullets", function(o1, o2) {
+		//o1.kill();
+		o2.kill();
+	});
+
+
 	Game.physics.collide("player", "planetBullets", function(o1, o2) {
 
 		console.log('coucou');
