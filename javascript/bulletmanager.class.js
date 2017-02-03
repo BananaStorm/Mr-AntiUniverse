@@ -1,8 +1,7 @@
 class BulletManager{
 	
-	constructor(fireRate, scene){
+	constructor(scene){
 		this.pool = [];
-		this.fireRate = fireRate;
 		this.nextFire = 0;
 		this.parent = scene;
 		this.rotation = 0;
@@ -27,14 +26,18 @@ class BulletManager{
 	}
 
 	fire(origin, angle, speed){
-		if (Game.time() > this.nextFire) {
+		if (Game.time > this.nextFire) {
 
 			this.getBullet().fire(origin, angle + this.rotation, speed);
-			this.nextFire = Game.time() + this.fireRate;
 			return true;
 		}
 		else {
 			return false;
 		}
 	};
+
+	wait(ms, callback){
+		this.nextFire = Game.time + ms;
+		if (callback) callback();
+	}
 }

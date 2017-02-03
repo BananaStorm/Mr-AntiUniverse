@@ -41,6 +41,7 @@ function create(){
 		new THREE.MeshBasicMaterial( { color: 0xffff00, wireframe: true } ) 
 	);
 
+
 	Game.scene.add( Game.spaceship );
 
 
@@ -52,7 +53,7 @@ function create(){
 	Game.scene.add( Game.planet );
 
 //PowerUp
-	Game.powerUpManager = new PowerUpManager(3000, 5000, Game.scene);
+	Game.powerUpManager = new PowerUpManager(300, 500, Game.scene);
 
 	Game.powerUpManager.powerUpClass.push(
 		new Repel(

@@ -30,9 +30,9 @@ class PowerUpManager{
 	}
 
 	spawn(origin){
-		if (Game.time() > this.nextPowerUp) {
+		if (Game.time > this.nextPowerUp) {
 			this.getPowerUp().spawn(origin);
-			this.nextPowerUp = Game.time() + this.spawnTimer;
+			this.nextPowerUp = Game.time + this.spawnTimer;
 			return true;
 		}
 		else {
