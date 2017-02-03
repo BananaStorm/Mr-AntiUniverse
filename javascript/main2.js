@@ -18,14 +18,28 @@ function create(){
 	Game.scene.add( Game.planet );
 
 //PowerUp
-/*	Game.powerUpManager = new PowerUpManager(5000, Game.scene);
-	let powerUp = Game.powerUpManager.populate(50);
+	Game.powerUpManager = new PowerUpManager(3000, 5000, Game.scene);
+
+	Game.powerUpManager.powerUpClass.push(
+		new Repel(
+			new THREE.SphereGeometry( 10, 10, 10 ), 
+			new THREE.MeshBasicMaterial( { color: 0x00ff00, wireframe: true } ) 
+		),
+
+		new Clean(
+			new THREE.SphereGeometry( 10, 10, 10 ), 
+			new THREE.MeshBasicMaterial( { color: 0xffff00, wireframe: true } ) 
+		)
+	);
+
+	let powerUp = Game.powerUpManager.populate(10);
 	
 	Game.physics.addCollisionGroup(powerUp, "powerUp");
 
 	Game.physics.collide("player", "powerUp", function(o1, o2) {
-		o2.onCollide();
-	});*/
+		o2.effect();
+		o2.kill();
+	});
 
 //Collide
 	Game.physics.collide("playerBullets", "planet", function(o1, o2) {
@@ -64,7 +78,6 @@ function create(){
 	Game.heatBar.position.x = 0;
 	Game.heatBar.rotation.x = 90*Math.PI/180;
 
-	console.log(Game.heatBar.geometry)
 }
 
 function update(){
@@ -75,8 +88,13 @@ function update(){
 		
 		let average = new THREE.Vector3(avgX, avgY, avgZ);
 
-		//Game.powerUpManager.spawn(Game.spaceship.position);
-		
+		Game.powerUpManager.spawn({
+			x : Game.planet.position.x + Math.cos(this.angle) * Game.planet.orbitSize,
+			z : Game.planet.position.z + Math.sin(this.angle) * Game.planet.orbitSize,
+			y:0
+
+		});
+
 		Game.camera.lookAt(average);
 		Game.camera.rotation.z = 0;
 }

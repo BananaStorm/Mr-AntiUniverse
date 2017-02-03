@@ -1,40 +1,38 @@
 class PowerUpManager{
 	
-	constructor(spawnTimer, scene){
+	constructor(spawnTimer, duration, scene){
 		this.pool = [];
 		this.spawnTimer = spawnTimer;
-		this.nextPowerUp = 5000;
+		this.nextPowerUp = spawnTimer;
 		this.parent = scene;
+		this.powerUpClass = [];
+		this.duration = duration;
 	}
 	
 	populate(nb){
-		
-		for (let i = 0; i < nb; i++) {
-			let index = Math.round(Math.random());
-			let newPowerUp = new Repel(
-				new THREE.SphereGeometry( 10, 10, 10 ), 
-				new THREE.MeshBasicMaterial( { color: 0x00ff00, wireframe: true } ) 
-			);
-			newPowerUp.kill();
-			this.pool.push(newPowerUp);
+		for (let i = 0; i < this.powerUpClass.length; i++) {
+			for (let j = 0; j < nb; j++) {
+				let newPowerUp = this.powerUpClass[i].create(this.duration);
+				newPowerUp.kill();
+				this.pool.push(newPowerUp);
+			}
 		}
-
 		return this.pool;
 	}
 
 	getPowerUp(){
-		for (let i = 0; i < this.pool.length; i++) {
-			let b = this.pool[i];
-			if (!b.alive) {
-				return b;
-			}
-		}
+		let index = Math.round(Math.random()*this.pool.length);
+
+		let powerUp = this.pool[index];
+
+		if (!powerUp.alive) return powerUp;
+		else this.getPowerUp()
 	}
 
 	spawn(origin){
 		if (Game.time() > this.nextPowerUp) {
 			this.getPowerUp().spawn(origin);
-			this.nextPowerUp = Game.time() + this.spawnTimer*(Math.random()+0.5);
+			this.nextPowerUp = Game.time() + this.spawnTimer;
 			return true;
 		}
 		else {
