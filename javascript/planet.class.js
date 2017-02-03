@@ -12,6 +12,7 @@ class Planet extends GameObject {
 			y: 0.02
 		}
 
+
 		this.weapon = null;
 		
 		this.bulletManagers = [];
@@ -20,17 +21,160 @@ class Planet extends GameObject {
 
 		for (let i = 0; i < 8; i++) {
 			
-			let bm = new BulletManager(100);
+			let bm = new BulletManager();
 			
 			let bullets = bm.populate(200, 	
 				new THREE.SphereGeometry(  4, 1, 4  ),
-				new THREE.MeshBasicMaterial( { color: 0x0000ff, wireframe: true } )
+				new THREE.MeshBasicMaterial( { color: 0x00ccff, wireframe: true } )
 			);
 
 			this.bulletManagers.push(bm);
 
 			Game.physics.populateCollisionGroup(bullets, "planetBullets");
 		}
+
+		let self = this;
+
+		this.pattern = new Pattern(
+
+			this.bulletManagers,
+
+			[
+				function(index, pattern) {
+
+					this.rotation = utils.degToRad(pattern.index*5);
+					
+					this.fire(self.position, utils.degToRad(45*index) - utils.degToRad(pattern.cursor*2), 2);
+					
+				},
+
+				function(index,pattern) {
+					pattern.wait(1);
+				},
+
+				function(index, pattern) {
+
+					this.rotation = utils.degToRad(pattern.index*5);
+					
+					this.fire(self.position, utils.degToRad(45*index) - utils.degToRad(pattern.cursor*2), 2);
+					
+				},
+
+				function(index,pattern) {
+					pattern.wait(1);
+				},
+
+				function(index, pattern) {
+
+					this.rotation = utils.degToRad(pattern.index*5);
+					
+					this.fire(self.position, utils.degToRad(45*index) - utils.degToRad(pattern.cursor*2), 2);
+					
+				},
+
+				function(index,pattern) {
+					pattern.wait(20);
+				},
+
+				function(index, pattern) {
+
+					this.rotation = utils.degToRad(pattern.index*5);
+					
+					this.fire(self.position, utils.degToRad(45*index) - utils.degToRad(pattern.cursor*2), 2);
+					
+				},
+
+				function(index,pattern) {
+					pattern.wait(1);
+				},
+
+				function(index, pattern) {
+
+					this.rotation = utils.degToRad(pattern.index*5);
+					
+					this.fire(self.position, utils.degToRad(45*index) - utils.degToRad(pattern.cursor*2), 2);
+					
+				},
+
+				function(index,pattern) {
+					pattern.wait(1);
+				},
+
+				function(index, pattern) {
+
+					this.rotation = utils.degToRad(pattern.index*5);
+					
+					this.fire(self.position, utils.degToRad(45*index) - utils.degToRad(pattern.cursor*2), 2);
+					
+				},
+
+				function(index,pattern) {
+					pattern.wait(20);
+				},
+
+				function(index, pattern) {
+
+					this.rotation = utils.degToRad(pattern.index*5);
+					
+					this.fire(self.position, utils.degToRad(45*index) - utils.degToRad(pattern.cursor*2), 2);
+					
+				},
+
+				function(index,pattern) {
+					pattern.wait(1);
+				},
+
+				function(index, pattern) {
+
+					this.rotation = utils.degToRad(pattern.index*5);
+					
+					this.fire(self.position, utils.degToRad(45*index) - utils.degToRad(pattern.cursor*2), 2);
+					
+				},
+
+				function(index,pattern) {
+					pattern.wait(1);
+				},
+
+				function(index, pattern) {
+
+					this.rotation = utils.degToRad(pattern.index*5);
+					
+					this.fire(self.position, utils.degToRad(45*index) - utils.degToRad(pattern.cursor*2), 2);
+					
+				},
+
+				function(index,pattern) {
+					pattern.wait(50);
+				}
+			]
+		);
+		
+		for(let k = 0; k < 32; k++) {
+			this.pattern.grid.push(
+
+				function(index, pattern) {
+
+					this.rotation = utils.degToRad(-pattern.index*5);
+					
+					this.fire(self.position, utils.degToRad(45*index) - utils.degToRad(pattern.cursor*2), 2);
+					pattern.wait(8 - Math.round(k)/4);
+				}
+			);
+
+			// if (k%4==0){
+			// 	this.pattern.grid.push(
+			// 		function(index, pattern) {
+			// 			pattern.wait(15);
+			// 		}
+			// 	)
+			// }
+		}
+
+		this.pattern.grid.push(function(index,pattern) {
+					pattern.wait(50);
+				});
+		
 
 		Game.physics.addCollisionGroup([this], "planet");
 
@@ -47,12 +191,18 @@ class Planet extends GameObject {
 		}
 
 
-		for (let i = 0; i < this.bulletManagers.length; i++) {
-			let bm = this.bulletManagers[i];
-			bm.fire(this.position, utils.degToRad(i*45), 2);
-			bm.rotation = utils.degToRad(Math.sin(index)*10);
-			index += 1;
-		}
+		// for (let i = 0; i < this.bulletManagers.length; i++) {
+			
+		// 	let bm = this.bulletManagers[i];
+		// 	if(bm.fire(this.position, utils.degToRad(i*45), 2)){
+		// 		bm.wait(3);
+		// 	};
+			
+		// 	bm.rotation = utils.degToRad(Math.sin(index)*10);
+		// 	index += 1;
+		// }
+
+		this.pattern.use();
 
 		this.rotation.x += this.rotationSpeed.x;
 		this.rotation.y += this.rotationSpeed.y;

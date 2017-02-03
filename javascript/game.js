@@ -10,6 +10,7 @@ let Game = {
 	physics: null,
 	start: 0,
 	isPaused : true,
+	time: 0,
 
 	init(){
 		
@@ -52,7 +53,7 @@ let Game = {
 	},
 
 	update(){
-
+		Game.time ++;
 		requestAnimationFrame( Game.update );
 		
 		if (state != 'main') return;
@@ -68,10 +69,6 @@ let Game = {
 	// render
 		Game.renderer.render( Game.scene, Game.camera );
 
-	},
-
-	time(){
-		return Date.now() - this.startingTime
 	},
 
 	gameOver(){

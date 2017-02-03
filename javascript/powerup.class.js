@@ -22,13 +22,13 @@ class PowerUp extends GameObject {
 	spawn(origin){
 		this.angle = (Math.random()*360);
 		this.reset(origin.x,origin.y,origin.z);
-		this.creatAt = Game.time();
+		this.creatAt = Game.time;
 
 	}
 
 
 	update(){
-		if (Game.time() > this.creatAt+this.duration ) this.kill(); 
+		if (Game.time > this.creatAt+this.duration ) this.kill(); 
 		
 		this.position.z = Game.planet.position.z + Math.sin(this.angle) * Game.planet.orbitSize;
 		this.position.x = Game.planet.position.x + Math.cos(this.angle) * Game.planet.orbitSize;

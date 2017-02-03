@@ -7,6 +7,7 @@ class Player extends GameObject {
 
 		this.maxSpeed = 1;
 		this.acceleration = 0.018;
+		this.fireRate = 10;
 
 		this.entryControls = [];
 
@@ -20,12 +21,12 @@ class Player extends GameObject {
 		
 
 		this.angle = 0;
-		this.bulletManager = new BulletManager(100);
+		this.bulletManager = new BulletManager();
 
 		this.hitbox = new GameObject(
 			
 			new THREE.SphereGeometry(  6, 8, 8  ),
-			new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true} )
+			new THREE.MeshBasicMaterial( { color: 0xff00cc, wireframe: true} )
 		);
 
 		this.hitbox.position.x = 500;
@@ -52,7 +53,7 @@ class Player extends GameObject {
 		let playerBullets = this.bulletManager.populate(200,
 			
 			new THREE.SphereGeometry(  4, 1, 4  ),
-			new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true } )
+			new THREE.MeshBasicMaterial( { color: 0xff00aa, wireframe: true } )
 
 		);
 
@@ -96,13 +97,16 @@ class Player extends GameObject {
 		this.shield.position.x = this.position.x;
 		this.shield.position.z = this.position.z;
 
-
 		if (this.heat != this.oldHeat) Game.heatBar.geometry = new THREE.RingGeometry( 320, 400, 15, 1, utils.degToRad(225), - this.heat*(Math.PI/2)/this.maxHeat );
 	
 		if (this.entryControls[' '] && !this.overHeat) {//Pression d'espace
 
-			if (this.bulletManager.fire(this.position, this.angle, 5) ) this.heat += 5;
+			if (this.bulletManager.fire(this.position, this.angle, 10)){
+				this.bulletManager.wait(this.fireRate);
+				this.heat += 5;
+			};
 			
+
 		}
 
 		if (this.overHeat){
