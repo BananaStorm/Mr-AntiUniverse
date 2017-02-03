@@ -42,7 +42,8 @@ class Repel extends PowerUp{
 	}
 
 	effect(){
-		Game.planet.orbitSize += 150;
+		Game.planet.orbitSize += 50;
+		if (Game.planet.orbitSize >Game.planet.orbitSizeMax) Game.planet.orbitSize = Game.planet.orbitSizeMax;
 	}
 }
 
@@ -63,5 +64,16 @@ class Clean extends PowerUp{
 				bullet.kill();
 			}
 		}
+	}
+}
+
+class HeatDown extends PowerUp{
+	
+	constructor(geometry,material,duration){
+		super(geometry,material,duration);
+	}
+
+	effect(){
+		Game.spaceship.healt -= 25;
 	}
 }

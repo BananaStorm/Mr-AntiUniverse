@@ -6,7 +6,7 @@ class Player extends GameObject {
 		this.target;
 
 		this.maxSpeed = 1;
-		this.acceleration = 0.018;
+		this.acceleration = 0.01;
 
 		this.entryControls = [];
 
@@ -18,8 +18,6 @@ class Player extends GameObject {
 
 		this.angle = -90*Math.PI/180;
 		
-
-		this.angle = 0;
 		this.bulletManager = new BulletManager(100);
 
 		this.hitbox = new GameObject(
@@ -80,7 +78,7 @@ class Player extends GameObject {
 		if (this.entryControls['a'] && !this.overHeat) {
 			this.shield.alive = true;
 			this.shield.visible = true;
-			this.heat+=2;
+			this.heat += 1.3;
 		}else{
 			this.shield.alive = false;
 			this.shield.visible = false;
@@ -101,7 +99,7 @@ class Player extends GameObject {
 	
 		if (this.entryControls[' '] && !this.overHeat) {//Pression d'espace
 
-			if (this.bulletManager.fire(this.position, this.angle, 5) ) this.heat += 5;
+			if (this.bulletManager.fire(this.position, this.angle, 5) ) this.heat += 8;
 			
 		}
 

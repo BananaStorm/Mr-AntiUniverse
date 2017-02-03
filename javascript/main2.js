@@ -2,11 +2,45 @@ let state = 'mainMenu';
 
 function create(){
 
+	//light
+		let ambient = new THREE.AmbientLight( 0xffffff );
+		Game.scene.add( ambient );
+
+	// model
+		var onProgress = function ( xhr ) {
+				if ( xhr.lengthComputable ) {
+					var percentComplete = xhr.loaded / xhr.total * 100;
+					console.log( Math.round(percentComplete, 2) + '% downloaded' );
+				}
+			};
+			var onError = function ( xhr ) { };
+			THREE.Loader.Handlers.add( /\.dds$/i, new THREE.DDSLoader() );
+			var mtlLoader = new THREE.MTLLoader();
+			mtlLoader.setPath( 'assets/' );
+			mtlLoader.load( 'mrau.mtl', function( materials ) {
+				materials.preload();
+				var objLoader = new THREE.OBJLoader();
+				objLoader.setMaterials( materials );
+				objLoader.setPath( 'assets/' );
+				objLoader.load( 'mrau.obj', function ( object ) {
+
+					Game.spaceship.geometry = object.children[0].geometry;
+					Game.spaceship.material = object.children[0].material;
+
+					Game.spaceship.scale.x=0.25;
+					Game.spaceship.scale.y=0.25;
+					Game.spaceship.scale.z=0.25;
+
+			}, onProgress, onError );
+		});
+//
+
 //PLAYER	
 	Game.spaceship = new Player(
 		new THREE.BoxGeometry( 8, 8, 16 ), 
 		new THREE.MeshBasicMaterial( { color: 0xffff00, wireframe: true } ) 
-	)
+	);
+
 	Game.scene.add( Game.spaceship );
 
 
@@ -29,6 +63,11 @@ function create(){
 		new Clean(
 			new THREE.SphereGeometry( 10, 10, 10 ), 
 			new THREE.MeshBasicMaterial( { color: 0xffff00, wireframe: true } ) 
+		),
+
+		new HeatDown(
+			new THREE.SphereGeometry( 10, 10, 10 ), 
+			new THREE.MeshBasicMaterial( { color: 0xff00ff, wireframe: true } ) 
 		)
 	);
 
@@ -44,7 +83,7 @@ function create(){
 //Collide
 	Game.physics.collide("playerBullets", "planet", function(o1, o2) {
 		o1.kill();
-		o2.health -= 5;
+		o2.health -= 7;
 	});
 
 	Game.physics.collide("shield", "planetBullets", function(o1, o2) {

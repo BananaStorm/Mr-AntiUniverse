@@ -6,6 +6,7 @@ class Planet extends GameObject {
 
 		// this.radius = radius;
 		this.orbitSize = 300;
+		this.orbitSizeMax = 300;
 
 		this.rotationSpeed = {
 			x: 0.01,

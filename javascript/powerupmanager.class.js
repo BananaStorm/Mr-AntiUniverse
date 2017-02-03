@@ -21,7 +21,7 @@ class PowerUpManager{
 	}
 
 	getPowerUp(){
-		let index = Math.round(Math.random()*this.pool.length);
+		let index = Math.round(Math.random()*(this.pool.length-1));
 
 		let powerUp = this.pool[index];
 
