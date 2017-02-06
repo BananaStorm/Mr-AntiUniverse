@@ -188,6 +188,7 @@ class Planet extends GameObject {
 		//Si l'entitée n'as plus d'hp on la tue et on sort de la fonction
 		if (this.health<=0){
 			this.kill();
+			Game.win();
 			return
 		}
 

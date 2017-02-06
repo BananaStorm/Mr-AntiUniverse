@@ -84,7 +84,7 @@ function create(){
 //Collide
 	Game.physics.collide("playerBullets", "planet", function(o1, o2) {
 		o1.kill();
-		o2.health -= 7;
+		o2.health -= 15;
 	});
 
 	Game.physics.collide("shield", "planetBullets", function(o1, o2) {

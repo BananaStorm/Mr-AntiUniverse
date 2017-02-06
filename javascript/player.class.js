@@ -80,7 +80,7 @@ class Player extends GameObject {
 		if (this.entryControls['a'] && !this.overHeat) {
 			this.shield.alive = true;
 			this.shield.visible = true;
-			this.heat += 1.3;
+			this.heat += 0.7;
 		}else{
 			this.shield.alive = false;
 			this.shield.visible = false;

@@ -43,7 +43,6 @@ let Game = {
 		this.camera.position.y = -400;
 
 		this.startingTime = Date.now();
-		create();
 
 	// launch update()
 		this.update();
@@ -82,5 +81,17 @@ let Game = {
 		screenGameOver.style.top = window.innerHeight/2+'px';
 		screenGameOver.style.left = window.innerWidth/2+'px';
 
+	},
+
+	win(){
+		state = 'win';
+		Game.scene.children = [];
+
+		let screenWin = document.getElementById('win');
+		screenWin.style.display = 'block';
+		screenWin.style.color = 'white';
+		screenWin.style.position = 'absolute';
+		screenWin.style.top = window.innerHeight/2+'px';
+		screenWin.style.left = window.innerWidth/2+'px';
 	}
 }
